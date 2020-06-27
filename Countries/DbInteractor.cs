@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Countries
+﻿namespace Countries
 {
     class DbInteractor
     {
@@ -22,31 +14,32 @@ namespace Countries
             int resultCode;
 
             int cityId = 0, regionId = 0, countryId = 0;
-            DataBaseConnection dbConnection = new DataBaseConnection();
-            int connectionErrorCode = dbConnection.CreateConnection(connectionString);
+            //DataBaseConnection dbConnection = new DataBaseConnection();
+            DbRequester dbRequester = new DbRequester(connectionString);
+            int connectionErrorCode = dbRequester.CreateConnection();
             if (connectionErrorCode == 0)
             {
-                cityId = dbConnection.FindCity(country.capital);
+                cityId = dbRequester.FindCity(country.capital);
                 if (cityId == -1)
                 {
-                    cityId = dbConnection.AddCity(country.name);
+                    cityId = dbRequester.AddCity(country.name);
                 }
 
-                regionId = dbConnection.FindRegion(country.region);
+                regionId = dbRequester.FindRegion(country.region);
                 if (regionId == -1)
                 {
-                    regionId = dbConnection.AddRegion(country.region);
+                    regionId = dbRequester.AddRegion(country.region);
                 }
 
-                countryId = dbConnection.FindCountry(country.code);
+                countryId = dbRequester.FindCountry(country.code);
                 if (countryId == -1)
                 {
-                    dbConnection.AddCountry(country, cityId, regionId);
+                    dbRequester.AddCountry(country, cityId, regionId);
                     resultCode = 1;
                 }
                 else
                 {
-                    dbConnection.UpdateCountry(country, cityId, regionId, countryId);
+                    dbRequester.UpdateCountry(country, cityId, regionId, countryId);
                     resultCode = 2;
                 }
             }

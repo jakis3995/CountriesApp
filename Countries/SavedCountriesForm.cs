@@ -33,11 +33,11 @@ namespace Countries
             /*
              * Обработка нажатия на кнопку "Заполнить таблицу данными из базы данных"
              */
-            DataBaseConnection dbConnection = new DataBaseConnection();
-            int connectionErrorCode = dbConnection.CreateConnection(connectionString);
+            DbRequester dbRequester = new DbRequester(connectionString);
+            int connectionErrorCode = dbRequester.CreateConnection();
             if (connectionErrorCode == 0)
             {
-                dataGridView1.DataSource = dbConnection.GetCountriesTable();
+                dataGridView1.DataSource = dbRequester.GetCountriesTable();
             }
             else
             {
