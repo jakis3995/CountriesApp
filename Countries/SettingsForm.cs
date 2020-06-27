@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Data.SqlClient;
-using System.IO;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Countries
 {
-    public partial class Settings : Form
+    public partial class SettingsForm : Form
     {
         private Form1 form1;
-        public Settings(Form1 form1)
+        private string connectionString;
+        public SettingsForm(Form1 form1)
         {
             this.form1 = form1;
             InitializeComponent();
@@ -33,101 +31,23 @@ namespace Countries
                  * конфигурации подключения; если стоит corruptedFileFlag предлагается
                  * пересохранить файл конфигурации.
                  */
-                bool fatallyCorruptedFileFlag = false, corruptedFileFlag = false;
-                string[] configurationProperties = this.form1.connectionString.Split(';');
-                if (!(configurationProperties.Length == 3 || configurationProperties.Length == 4))
+                ConfigChecker configChecker = new ConfigChecker();
+                string[] configurationProperties = configChecker.Check(this.form1.connectionString);
+                if (configurationProperties.Length == 3)
                 {
-                    fatallyCorruptedFileFlag = true;
+                    textBox1.Text = configurationProperties[0];
+                    textBox2.Text = configurationProperties[1];
                 }
                 else
                 {
-                    try
-                    {
-                        textBox1.Text = configurationProperties[0].Split('=')[1];
-                        if (!configurationProperties[0].Split('=')[0].Equals("Data Source"))
-                        {
-                            corruptedFileFlag = true;
-                        }
-                    }
-                    catch (Exception exception)
-                    {
-                        fatallyCorruptedFileFlag = true;
-                    }
-                    try
-                    {
-                        textBox2.Text = configurationProperties[1].Split('=')[1];
-                        if (!configurationProperties[1].Split('=')[0].Equals("Initial Catalog"))
-                        {
-                            corruptedFileFlag = true;
-                        }
-                    }
-                    catch (Exception exception)
-                    {
-                        fatallyCorruptedFileFlag = true;
-                    }
                     if (configurationProperties.Length == 4)
                     {
                         checkBox1.Checked = true;
-                        try
-                        {
-                            textBox3.Text = configurationProperties[2].Split('=')[1];
-                            if (!configurationProperties[2].Split('=')[0].Equals("User Id"))
-                            {
-                                corruptedFileFlag = true;
-                            }
-                        }
-                        catch (Exception exception)
-                        {
-                            fatallyCorruptedFileFlag = true;
-                        }
-                        try
-                        {
-                            textBox4.Text = configurationProperties[3].Split('=')[1];
-                            if (!configurationProperties[3].Split('=')[0].Equals("Password"))
-                            {
-                                corruptedFileFlag = true;
-                            }
-                        }
-                        catch (Exception exception)
-                        {
-                            fatallyCorruptedFileFlag = true;
-                        }
+                        textBox1.Text = configurationProperties[0];
+                        textBox2.Text = configurationProperties[1];
+                        textBox3.Text = configurationProperties[2];
+                        textBox4.Text = configurationProperties[3];
                     }
-                    else
-                    {
-                        try
-                        {
-                            if (!configurationProperties[2].Split('=')[0].Equals("Integrated Security") &&
-                                (!configurationProperties[2].Split('=')[1].Equals("True")))
-                            {
-                                corruptedFileFlag = true;
-                            }
-                        }
-                        catch (Exception exception)
-                        {
-                            corruptedFileFlag = true;
-                        }
-                    }
-                }
-                if (fatallyCorruptedFileFlag)
-                {
-                    MessageBox.Show("Файл конфигурации подключения к базе данных сильно повреждён. " +
-                        "Уточните данные для подключения в настройках",
-                    "Ошибка",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error,
-                    MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.DefaultDesktopOnly);
-                }
-                if (corruptedFileFlag)
-                {
-                    MessageBox.Show("Файл конфигурации подключения к базе данных повреждён. " +
-                        "Пересохраните данные конфигурации в настройках",
-                    "Внимание",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning,
-                    MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.DefaultDesktopOnly);
                 }
             }
         }
@@ -141,52 +61,16 @@ namespace Countries
             form1.Visible = true;
         }
 
-        string connectionString;
-
-        private bool IsConnectionTestSuccessful()
-        {
-            /*
-             *    Метод проверяет может ли приложение подключится к базе данных по введённым
-             * в текстовые поля данным конфигурации подключения. Возвращает логическое значение:
-             * true - если подключение удалось.
-             */
-            bool success = false;
-            string dataSource = textBox1.Text;
-            string databaseName = textBox2.Text;
-            StringBuilder connectionStringBuilder = new StringBuilder();
-            connectionStringBuilder.Append("Data Source=" + dataSource + ";");
-            connectionStringBuilder.Append("Initial Catalog=" + databaseName + ";");
-            if (checkBox1.Checked)
-            {
-                connectionStringBuilder.Append("User Id=" + textBox3.Text + ";");
-                connectionStringBuilder.Append("Password=" + textBox4.Text);
-            }
-            else
-            {
-                connectionStringBuilder.Append("Integrated Security=True");
-            }
-            connectionString = connectionStringBuilder.ToString();
-            try
-            {
-                SqlConnection sqlConnection = new SqlConnection(connectionString);
-                sqlConnection.Open();
-                sqlConnection.Close();
-                
-                success = true;
-            }
-            catch (Exception exception)
-            {
-            }
-
-            return success;
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             /*
              * Обработка нажатия на кнопку "Тест подключения"
              */
-            if (IsConnectionTestSuccessful())
+            DbConnectionTester dbConnectionTester = new DbConnectionTester();
+            connectionString = dbConnectionTester.ConnectionStringBuilder(textBox1.Text,
+                textBox2.Text, checkBox1.Checked, textBox3.Text,
+                textBox4.Text);
+            if (dbConnectionTester.IsConnectionTestSuccessful(connectionString))
             {
                 MessageBox.Show("Удалось подключиться к базе данных",
                     "Сообщение",
@@ -267,14 +151,14 @@ namespace Countries
              * (IsConnectionTestSuccessful()) на подключение к базе данных с введёнными 
              * пользователем параметрами.
              */
-            if (IsConnectionTestSuccessful())
+            DbConnectionTester dbConnectionTester = new DbConnectionTester();
+            connectionString = dbConnectionTester.ConnectionStringBuilder(textBox1.Text,
+                textBox2.Text, checkBox1.Checked, textBox3.Text,
+                textBox4.Text);
+            if (dbConnectionTester.IsConnectionTestSuccessful(connectionString))
             {
-                using (FileStream configFile = File.Create("connectionConfig.txt"))
-                {
-                    StreamWriter streamWriter = new StreamWriter(configFile);
-                    streamWriter.WriteLine(connectionString);
-                    streamWriter.Close();
-                }
+                ConfigFileCreator configFileCreator = new ConfigFileCreator();
+                configFileCreator.CreateConfigFile(connectionString);
                 MessageBox.Show("Чтобы изменения вступили в силу, перезапустите программу",
                     "Сообщение",
                     MessageBoxButtons.OK,

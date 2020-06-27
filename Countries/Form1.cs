@@ -1,14 +1,13 @@
 ﻿using System;
-using System.IO;
 using System.Windows.Forms;
 
 namespace Countries
 {
     public partial class Form1 : Form
     {
-        private CountriesSearch countriesSearchForm;
-        private SavedCountries savedCountriesForm;
-        private Settings settingsForm;
+        private CountriesSearchForm countriesSearchForm;
+        private SavedCountriesForm savedCountriesForm;
+        private SettingsForm settingsForm;
         public string connectionString;
 
         public Form1()
@@ -22,51 +21,20 @@ namespace Countries
              * уже используется на протяжении всей программы. Если файл отсутствует или, в нём 
              * отсутствуют записи, выводятся соответствующие сообщения.
              */
-            if (File.Exists("connectionConfig.txt"))
-            {
-                FileStream configFile = File.OpenRead("connectionConfig.txt");
 
-                StreamReader streamReader = new StreamReader(configFile);
-                if (configFile.Length > 0)
-                {
-                    string redLine = streamReader.ReadLine();
-                    if (redLine.EndsWith(";"))
-                    {
-                        redLine = redLine.Substring(0, redLine.Length - 2);
-                    }
-                    connectionString = redLine;
-                }
-                else
-                {
-                    MessageBox.Show("В файле конфигурации подключения к базе данных отсутствуют записи. " +
-                    "Зайдите в настройки для конфигурации подключения",
-                    "Внимание",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning,
-                    MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.DefaultDesktopOnly);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Файл конфигурации подключения к базе данных не найден. " +
-                    "Зайдите в настройки для конфигурации подключения",
-                    "Внимание",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning,
-                    MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.DefaultDesktopOnly);
-            }
+            string fileName = "connectionConfig.txt";
+            DbConfigGrabber dbConfigGrabber = new DbConfigGrabber();
+            connectionString = dbConfigGrabber.getConnectionString(fileName);
 
-            countriesSearchForm = new CountriesSearch(this)
+            countriesSearchForm = new CountriesSearchForm(this)
             {
                 Visible = false
             };
-            savedCountriesForm = new SavedCountries(this)
+            savedCountriesForm = new SavedCountriesForm(this)
             {
                 Visible = false
             };
-            settingsForm = new Settings(this)
+            settingsForm = new SettingsForm(this)
             {
                 Visible = false
             };
