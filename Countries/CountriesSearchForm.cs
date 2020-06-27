@@ -14,7 +14,7 @@ namespace Countries
             this.form1 = form1;
             InitializeComponent();
             textBox1.Select();
-            connectionString = form1.connectionString;
+            connectionString = form1.GetConnectionString();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -55,12 +55,12 @@ namespace Countries
                 {
                     case 0:
                         country = countryInfoGrabber.GetCountryInfo(countryName);
-                        textBox2.Text = country.code;
-                        textBox3.Text = country.capital;
-                        textBox4.Text = country.area.ToString();
-                        textBox5.Text = country.population.ToString();
-                        textBox6.Text = country.region;
-                        textBox7.Text = country.name;
+                        textBox2.Text = country.Code;
+                        textBox3.Text = country.Capital;
+                        textBox4.Text = country.Area.ToString();
+                        textBox5.Text = country.Population.ToString();
+                        textBox6.Text = country.Region;
+                        textBox7.Text = country.Name;
                         break;
                     case -1:
                         MessageBox.Show("Неизвестная ошибка при попытке найти информацию" +
@@ -158,7 +158,7 @@ namespace Countries
                         break;
                     case 2:
                         MessageBox.Show("В базе данных внесены изменения по введённой" +
-                                        "стране",
+                                        " стране",
                             "Сообщение",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information,

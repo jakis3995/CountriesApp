@@ -6,7 +6,7 @@ namespace Countries
 {
     class DbConfigGrabber
     {
-        public String getConnectionString(string fileName)
+        public String GetConnectionString(string fileName)
         {
             string connectionString = null;
 

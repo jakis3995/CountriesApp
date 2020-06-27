@@ -14,24 +14,23 @@
             int resultCode;
 
             int cityId = 0, regionId = 0, countryId = 0;
-            //DataBaseConnection dbConnection = new DataBaseConnection();
             DbRequester dbRequester = new DbRequester(connectionString);
             int connectionErrorCode = dbRequester.CreateConnection();
             if (connectionErrorCode == 0)
             {
-                cityId = dbRequester.FindCity(country.capital);
+                cityId = dbRequester.FindCity(country.Capital);
                 if (cityId == -1)
                 {
-                    cityId = dbRequester.AddCity(country.name);
+                    cityId = dbRequester.AddCity(country.Capital);
                 }
 
-                regionId = dbRequester.FindRegion(country.region);
+                regionId = dbRequester.FindRegion(country.Region);
                 if (regionId == -1)
                 {
-                    regionId = dbRequester.AddRegion(country.region);
+                    regionId = dbRequester.AddRegion(country.Region);
                 }
 
-                countryId = dbRequester.FindCountry(country.code);
+                countryId = dbRequester.FindCountry(country.Code);
                 if (countryId == -1)
                 {
                     dbRequester.AddCountry(country, cityId, regionId);

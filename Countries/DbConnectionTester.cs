@@ -45,8 +45,9 @@ namespace Countries
 
                 success = true;
             }
-            catch (Exception exception)
+            catch (Exception)
             {
+                // ignored
             }
 
             return success;

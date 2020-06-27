@@ -8,7 +8,7 @@ namespace Countries
         private CountriesSearchForm countriesSearchForm;
         private SavedCountriesForm savedCountriesForm;
         private SettingsForm settingsForm;
-        public string connectionString;
+        private string connectionString;
 
         public Form1()
         {
@@ -24,7 +24,7 @@ namespace Countries
 
             string fileName = "connectionConfig.txt";
             DbConfigGrabber dbConfigGrabber = new DbConfigGrabber();
-            connectionString = dbConfigGrabber.getConnectionString(fileName);
+            connectionString = dbConfigGrabber.GetConnectionString(fileName);
 
             countriesSearchForm = new CountriesSearchForm(this)
             {
@@ -38,6 +38,11 @@ namespace Countries
             {
                 Visible = false
             };
+        }
+
+        public string GetConnectionString()
+        {
+            return this.connectionString;
         }
 
         private void button1_Click(object sender, EventArgs e)

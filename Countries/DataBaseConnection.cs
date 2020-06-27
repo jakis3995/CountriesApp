@@ -14,15 +14,21 @@ namespace Countries
             try
             {
                 this.sqlConnection = new SqlConnection(connectionString);
+                sqlConnection.Open();
+                sqlConnection.Close();
                 result = 0;
             }
-            catch (InvalidOperationException exception)
+            catch (InvalidOperationException)
             {
                 result = 1;
             }
-            catch (ArgumentException exception)
+            catch (ArgumentException)
             {
                 result = 2;
+            }
+            catch (SqlException)
+            {
+                result = 3;
             }
 
             return result;

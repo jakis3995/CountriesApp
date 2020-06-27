@@ -128,9 +128,9 @@ namespace Countries
         {
             string countryInsert = "INSERT INTO Countries " +
                                    "(name, code, capital, area, population, region) " +
-                                   "VALUES ('" + country.name + "', '" + country.code + "', " +
-                                   "" + cityId + ", " + country.area + ", " +
-                                   "" + country.population + ", " + regionId + ")";
+                                   "VALUES ('" + country.Name + "', '" + country.Code + "', " +
+                                   "" + cityId + ", " + country.Area + ", " +
+                                   "" + country.Population + ", " + regionId + ")";
             SqlCommand countryInsertCommand = new SqlCommand(countryInsert,
                 sqlConnection);
             countryInsertCommand.Connection.Open();
@@ -141,9 +141,9 @@ namespace Countries
         public void UpdateCountry(Country country, int cityId, int regionId, int countryId)
         {
             string countryUpdate = "UPDATE Countries SET " +
-                                   "name = '" + country.name + "', capital = " + cityId + ", " +
-                                   "area = " + country.area + ", " +
-                                   "population = " + country.population + ", " +
+                                   "name = '" + country.Name + "', capital = " + cityId + ", " +
+                                   "area = " + country.Area + ", " +
+                                   "population = " + country.Population + ", " +
                                    "region = " + regionId + " WHERE id = " + countryId + "";
             SqlCommand countryUpdateCommand = new SqlCommand(countryUpdate,
                 sqlConnection);

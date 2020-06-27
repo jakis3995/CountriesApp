@@ -24,7 +24,7 @@ namespace Countries
                     configurationProperties[0] = configurationProperties[0].
                         Split('=')[1];
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
                     fatallyCorruptedFileFlag = true;
                 }
@@ -36,7 +36,7 @@ namespace Countries
                     }
                     configurationProperties[1] = configurationProperties[1].Split('=')[1];
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
                     fatallyCorruptedFileFlag = true;
                 }
@@ -50,7 +50,7 @@ namespace Countries
                         }
                         configurationProperties[2] = configurationProperties[2].Split('=')[1];
                     }
-                    catch (Exception exception)
+                    catch (Exception)
                     {
                         fatallyCorruptedFileFlag = true;
                     }
@@ -62,7 +62,7 @@ namespace Countries
                         }
                         configurationProperties[3] = configurationProperties[3].Split('=')[1];
                     }
-                    catch (Exception exception)
+                    catch (Exception)
                     {
                         fatallyCorruptedFileFlag = true;
                     }
@@ -77,7 +77,7 @@ namespace Countries
                             corruptedFileFlag = true;
                         }
                     }
-                    catch (Exception exception)
+                    catch (Exception)
                     {
                         corruptedFileFlag = true;
                     }

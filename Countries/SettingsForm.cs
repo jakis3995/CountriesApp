@@ -18,7 +18,7 @@ namespace Countries
              * аутентификация требуется) - заносятся соответствующие данные, взятые из 
              * connectionString. При этом данные проверяются
              */
-            if (this.form1.connectionString != null)
+            if (this.form1.GetConnectionString() != null)
             {
                 /*
                  *    Если файл сильно повреждается: отсутствуют знаки "=;" или слишком много 
@@ -32,7 +32,7 @@ namespace Countries
                  * пересохранить файл конфигурации.
                  */
                 ConfigChecker configChecker = new ConfigChecker();
-                string[] configurationProperties = configChecker.Check(this.form1.connectionString);
+                string[] configurationProperties = configChecker.Check(this.form1.GetConnectionString());
                 if (configurationProperties.Length == 3)
                 {
                     textBox1.Text = configurationProperties[0];

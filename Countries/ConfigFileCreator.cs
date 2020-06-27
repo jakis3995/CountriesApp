@@ -16,7 +16,7 @@ namespace Countries
                 streamWriter.WriteLine(connectionString);
                 streamWriter.Close();
             }
-            catch (IOException exception)
+            catch (IOException)
             {
                 MessageBox.Show("Файл конфигурации занят другим процессом. Закройте программы" +
                                 ", которые могли бы использовать данный файл и попробуйте сохранить" +

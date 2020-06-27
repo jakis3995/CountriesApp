@@ -6,32 +6,32 @@
          * Это класс страны, где присутствуют все нужные по заданию свойства: наименование,
          * код, столица (название), площадь, численность населения и регион (название).
          */
-        public string name
+        public string Name
         {
             get;
             set;
         }
-        public string code
+        public string Code
         {
             get;
             set;
         }
-        public string capital
+        public string Capital
         {
             get;
             set;
         }
-        public float area
+        public float Area
         {
             get;
             set;
         }
-        public long population
+        public long Population
         {
             get;
             set;
         }
-        public string region
+        public string Region
         {
             get;
             set;
@@ -40,12 +40,12 @@
         public Country(string name, string code, string capital, float area, 
             long population, string region)
         {
-            this.name = name;
-            this.code = code;
-            this.capital = capital;
-            this.area = area;
-            this.population = population;
-            this.region = region;
+            this.Name = name;
+            this.Code = code;
+            this.Capital = capital;
+            this.Area = area;
+            this.Population = population;
+            this.Region = region;
         }
     }
 }

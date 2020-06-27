@@ -11,7 +11,7 @@ namespace Countries
         {
             this.form1 = form1;
             InitializeComponent();
-            connectionString = form1.connectionString;
+            connectionString = form1.GetConnectionString();
         }
 
         private void button1_Click(object sender, EventArgs e)
