@@ -135,38 +135,28 @@ namespace Countries
             }
             else
             {
-                int cityId = 0, regionId = 0, countryId = 0;
-
-                DataBaseConnection dbConnection = new DataBaseConnection();
-                int connectionErrorCode = dbConnection.CreateConnection(connectionString);
-                if (connectionErrorCode == 0)
+                DbInteractor dbInteractor = new DbInteractor(connectionString);
+                int resultCode = dbInteractor.CreateOrUpdateCountry(country);
+                switch (resultCode)
                 {
-                    cityId = dbConnection.FindCity(country.capital);
-                    if (cityId == -1)
-                    {
-                        cityId = dbConnection.AddCity(country.name);
-                    }
-
-                    regionId = dbConnection.FindRegion(country.region);
-                    if (regionId == -1)
-                    {
-                        regionId = dbConnection.AddRegion(country.region);
-                    }
-
-                    countryId = dbConnection.FindCountry(country.code);
-                    if (countryId == -1)
-                    {
-                        dbConnection.AddCountry(country, cityId, regionId);
+                    case -1:
+                        MessageBox.Show("Невозможно подключиться в базе данных. " +
+                                        "Уточните конфигурации подключения к базе данных в настройках",
+                            "Внимание",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning,
+                            MessageBoxDefaultButton.Button1,
+                            MessageBoxOptions.DefaultDesktopOnly);
+                        break;
+                    case 1:
                         MessageBox.Show("В базу данных внесена информация о новой стране",
                             "Сообщение",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information,
                             MessageBoxDefaultButton.Button1,
                             MessageBoxOptions.DefaultDesktopOnly);
-                    }
-                    else
-                    {
-                        dbConnection.UpdateCountry(country, cityId, regionId, countryId);
+                        break;
+                    case 2:
                         MessageBox.Show("В базе данных внесены изменения по введённой" +
                                         "стране",
                             "Сообщение",
@@ -174,17 +164,7 @@ namespace Countries
                             MessageBoxIcon.Information,
                             MessageBoxDefaultButton.Button1,
                             MessageBoxOptions.DefaultDesktopOnly);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Невозможно подключиться в базе данных. " +
-                                    "Уточните конфигурации подключения к базе данных в настройках",
-                        "Внимание",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.DefaultDesktopOnly);
+                        break;
                 }
             }
         }

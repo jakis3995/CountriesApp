@@ -63,6 +63,7 @@
     <Compile Include="DataBaseConnection.cs" />
     <Compile Include="DBConfigGrabber.cs" />
     <Compile Include="DbConnectionTester.cs" />
+    <Compile Include="DbInteractor.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
