@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace Countries
 {
-    class DataBaseConnection
+    class DataBaseConnection : IDbConnection
     {
         /* Класс, отвечающий за соединение с базой данных
          */

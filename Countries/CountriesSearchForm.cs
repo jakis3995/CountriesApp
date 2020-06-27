@@ -53,7 +53,7 @@ namespace Countries
             string url = "https://restcountries.eu/rest/v2/name/";
             if (countryName != "")
             {
-                CountryInfoGrabber countryInfoGrabber = new CountryInfoGrabber(url);
+                ICountryInfoGrabber countryInfoGrabber = new CountryInfoGrabber(url);
                 // Проверяет возможность извлечь информацию о введённой стране
                 int errorCode = countryInfoGrabber.CheckGetAbility(countryName);
 
@@ -142,7 +142,7 @@ namespace Countries
             }
             else
             {
-                DbInteractor dbInteractor = new DbInteractor(connectionString);
+                IDbInteractor dbInteractor = new DbInteractor(connectionString);
                 int resultCode = dbInteractor.CreateOrUpdateCountry(country);
                 switch (resultCode)
                 {

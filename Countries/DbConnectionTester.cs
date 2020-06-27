@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Countries
 {
-    class DbConnectionTester
+    class DbConnectionTester : IDbConnectionTester
     {
         /* Класс, проверяющий возможность подключиться к базе данных по информации, введённой
          * пользователем

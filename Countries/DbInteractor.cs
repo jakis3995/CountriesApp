@@ -1,6 +1,6 @@
 ﻿namespace Countries
 {
-    class DbInteractor
+    class DbInteractor : IDbInteractor
     {
         /* Класс взаимодействующий с базой данных (на высшем уровне, через DbRequester)
          */
@@ -21,7 +21,7 @@
             int resultCode;
 
             int cityId = 0, regionId = 0, countryId = 0;
-            DbRequester dbRequester = new DbRequester(connectionString);
+            IDbRequester dbRequester = new DbRequester(connectionString);
             int connectionErrorCode = dbRequester.CreateConnection();
             if (connectionErrorCode == 0)
             {

@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Countries
 {
-    class DbConfigGrabber
+    class DbConfigGrabber : IDbConfigGrabber
     {
         /* Класс, получающий информацию по подключению к базе данных из файла
          */

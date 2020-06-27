@@ -25,7 +25,7 @@ namespace Countries
              */
 
             string fileName = "connectionConfig.txt";
-            DbConfigGrabber dbConfigGrabber = new DbConfigGrabber();
+            IDbConfigGrabber dbConfigGrabber = new DbConfigGrabber();
             connectionString = dbConfigGrabber.GetConnectionString(fileName);
 
             /* Создаются формы, которые будут доступны на всём протяжении работы программы

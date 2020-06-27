@@ -6,7 +6,7 @@ using System.Net;
 
 namespace Countries
 {
-    class CountryInfoGrabber
+    class CountryInfoGrabber : ICountryInfoGrabber
     {
         /* Класс, получающий информацию по введённой стране из Web-страницы
          */

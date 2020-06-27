@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace Countries
 {
-    class ConfigFileCreator
+    class ConfigFileCreator : IConfigFileCreator
     {
         /* Класс, создающий файл конфигурации подключения к базе данных
          */

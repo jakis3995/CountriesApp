@@ -71,6 +71,14 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="IConfigChecker.cs" />
+    <Compile Include="IConfigFileCreator.cs" />
+    <Compile Include="ICountryInfoGrabber.cs" />
+    <Compile Include="IDbConfigGrabber.cs" />
+    <Compile Include="IDbConnection.cs" />
+    <Compile Include="IDbConnectionTester.cs" />
+    <Compile Include="IDbInteractor.cs" />
+    <Compile Include="IDbRequester.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SavedCountriesForm.cs">

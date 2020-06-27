@@ -35,7 +35,7 @@ namespace Countries
             /*
              * Обработка нажатия на кнопку "Заполнить таблицу данными из базы данных"
              */
-            DbRequester dbRequester = new DbRequester(connectionString);
+            IDbRequester dbRequester = new DbRequester(connectionString);
             // Проверяет возможность подключения к базе данных
             int connectionErrorCode = dbRequester.CreateConnection();
             // Через экземпляр класса DbRequester получает таблицу стран и заполняет ею dataGridView1

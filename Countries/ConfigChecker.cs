@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace Countries
 {
-    class ConfigChecker
+    class ConfigChecker : IConfigChecker
     {
         /* Класс, проверяющий файл конфигурации подключения к базе данных на корректность
          */

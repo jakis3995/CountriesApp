@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace Countries
 {
-    class DbRequester
+    class DbRequester : IDbRequester
     {
         /* Класс, напрямую взаимодействующий с базой данных и включающий в себя запросы к базе
          * данных
@@ -20,7 +20,7 @@ namespace Countries
 
         public int CreateConnection()
         {
-            DataBaseConnection dataBaseConnection = new DataBaseConnection();
+            IDbConnection dataBaseConnection = new DataBaseConnection();
             int result = dataBaseConnection.CreateConnection(connectionString);
             this.sqlConnection = dataBaseConnection.GetSqlConnection();
 

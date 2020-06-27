@@ -33,7 +33,7 @@ namespace Countries
                  * конфигурации подключения; если стоит corruptedFileFlag предлагается
                  * пересохранить файл конфигурации.
                  */
-                ConfigChecker configChecker = new ConfigChecker();
+                IConfigChecker configChecker = new ConfigChecker();
                 string[] configurationProperties = configChecker.Check(this.form1.GetConnectionString());
                 if (configurationProperties.Length == 3)
                 {
@@ -68,7 +68,7 @@ namespace Countries
             /*
              * Обработка нажатия на кнопку "Тест подключения"
              */
-            DbConnectionTester dbConnectionTester = new DbConnectionTester();
+            IDbConnectionTester dbConnectionTester = new DbConnectionTester();
             connectionString = dbConnectionTester.ConnectionStringBuilder(textBox1.Text,
                 textBox2.Text, checkBox1.Checked, textBox3.Text,
                 textBox4.Text);
@@ -153,13 +153,13 @@ namespace Countries
              * (IsConnectionTestSuccessful() в DbConnectionTester) на подключение к базе данных
              * с введёнными пользователем параметрами.
              */
-            DbConnectionTester dbConnectionTester = new DbConnectionTester();
+            IDbConnectionTester dbConnectionTester = new DbConnectionTester();
             connectionString = dbConnectionTester.ConnectionStringBuilder(textBox1.Text,
                 textBox2.Text, checkBox1.Checked, textBox3.Text,
                 textBox4.Text);
             if (dbConnectionTester.IsConnectionTestSuccessful(connectionString))
             {
-                ConfigFileCreator configFileCreator = new ConfigFileCreator();
+                IConfigFileCreator configFileCreator = new ConfigFileCreator();
                 configFileCreator.CreateConfigFile(connectionString);
                 MessageBox.Show("Чтобы изменения вступили в силу, перезапустите программу",
                     "Сообщение",
