@@ -5,6 +5,8 @@ namespace Countries
 {
     public partial class SavedCountriesForm : Form
     {
+        /* Класс формы отображения записей базы данных (сохраненных стран) в таблице
+         */
         private Form1 form1;
         string connectionString;
         public SavedCountriesForm(Form1 form1)
@@ -34,7 +36,9 @@ namespace Countries
              * Обработка нажатия на кнопку "Заполнить таблицу данными из базы данных"
              */
             DbRequester dbRequester = new DbRequester(connectionString);
+            // Проверяет возможность подключения к базе данных
             int connectionErrorCode = dbRequester.CreateConnection();
+            // Через экземпляр класса DbRequester получает таблицу стран и заполняет ею dataGridView1
             if (connectionErrorCode == 0)
             {
                 dataGridView1.DataSource = dbRequester.GetCountriesTable();

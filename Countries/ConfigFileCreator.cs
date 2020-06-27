@@ -5,6 +5,8 @@ namespace Countries
 {
     class ConfigFileCreator
     {
+        /* Класс, создающий файл конфигурации подключения к базе данных
+         */
         private string fileName = "connectionConfig.txt";
 
         public void CreateConfigFile(string connectionString)

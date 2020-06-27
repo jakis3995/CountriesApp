@@ -2,6 +2,8 @@
 {
     class DbInteractor
     {
+        /* Класс взаимодействующий с базой данных (на высшем уровне, через DbRequester)
+         */
         private string connectionString;
 
         public DbInteractor(string connectionString)
@@ -11,6 +13,11 @@
 
         public int CreateOrUpdateCountry(Country country)
         {
+            /* Содержит алгоритм добавления страны: сначала добавляется столица в таблицу городов,
+             * если её нет, затем добавляется регион в таблицу регионов, если его нет, затем,
+             * если страна есть, по ней обновляется информация, если нет - создаётся новая. Работа
+             * с запросами производится через экземпляр класса DbRequester
+             */
             int resultCode;
 
             int cityId = 0, regionId = 0, countryId = 0;

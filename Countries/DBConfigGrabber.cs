@@ -6,8 +6,14 @@ namespace Countries
 {
     class DbConfigGrabber
     {
+        /* Класс, получающий информацию по подключению к базе данных из файла
+         */
         public String GetConnectionString(string fileName)
         {
+            /* Метод, получающий connectionString из файла
+             * Если файл не найден или в нём отсуствуют записи, выведутся соответствующие
+             * сообщения
+             */
             string connectionString = null;
 
             if (File.Exists(fileName))
@@ -18,6 +24,7 @@ namespace Countries
                 if (configFile.Length > 0)
                 {
                     string redLine = streamReader.ReadLine();
+                    // Убирает последнюю точку с запятой, если таковая есть
                     if (redLine.EndsWith(";"))
                     {
                         redLine = redLine.Substring(0, redLine.Length - 2);

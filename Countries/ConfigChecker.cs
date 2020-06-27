@@ -5,8 +5,22 @@ namespace Countries
 {
     class ConfigChecker
     {
+        /* Класс, проверяющий файл конфигурации подключения к базе данных на корректность
+         */
         public string[] Check(string connectionString)
         {
+            /*
+             *    Если файл сильно повреждается: отсутствуют знаки "=;" или слишком много 
+             * или мало параметров - флаг fatallyCorruptedFileFlag ставится на true и данные
+             * не заносятся в текстовые поля.
+             *    Если файл незначительно повреждается: названия параметров конфигурации
+             * не являются корректными - флаг corruptedFileFlag ставится на true и данные, 
+             * которые можно прочитать, заносятся в соответствующие текстовые поля.
+             *    В конце, если стоит fatallyCorruptedFileFlag предлагается уточнить данные
+             * конфигурации подключения; если стоит corruptedFileFlag предлагается
+             * пересохранить файл конфигурации.
+             */
+
             bool fatallyCorruptedFileFlag = false, corruptedFileFlag = false;
             string[] configurationProperties = connectionString.Split(';');
             if (!(configurationProperties.Length == 3 || configurationProperties.Length == 4))

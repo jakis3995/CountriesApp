@@ -5,6 +5,8 @@ namespace Countries
 {
     public partial class Form1 : Form
     {
+        /* Класс формы главного меню программы
+         */
         private CountriesSearchForm countriesSearchForm;
         private SavedCountriesForm savedCountriesForm;
         private SettingsForm settingsForm;
@@ -26,6 +28,8 @@ namespace Countries
             DbConfigGrabber dbConfigGrabber = new DbConfigGrabber();
             connectionString = dbConfigGrabber.GetConnectionString(fileName);
 
+            /* Создаются формы, которые будут доступны на всём протяжении работы программы
+             */
             countriesSearchForm = new CountriesSearchForm(this)
             {
                 Visible = false
@@ -45,6 +49,8 @@ namespace Countries
             return this.connectionString;
         }
 
+        /* Переход по формам через кнопки меню
+         */
         private void button1_Click(object sender, EventArgs e)
         {
             this.Visible = false;

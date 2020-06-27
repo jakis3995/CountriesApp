@@ -7,6 +7,9 @@ namespace Countries
 {
     class DbRequester
     {
+        /* Класс, напрямую взаимодействующий с базой данных и включающий в себя запросы к базе
+         * данных
+         */
         private string connectionString;
         private SqlConnection sqlConnection;
 
@@ -26,6 +29,8 @@ namespace Countries
 
         public int FindCity(string cityName)
         {
+            /* Запрос по поиску города
+             */
             int foundId = -1;
 
             string cityIdSearch = "SELECT id FROM Cities WHERE name = '" + cityName + "'";
@@ -48,6 +53,8 @@ namespace Countries
 
         public int AddCity(string cityName)
         {
+            /* Запрос по добавлению города
+             */
             int cityId = 0;
 
             string cityInsert = "INSERT INTO Cities (name) " +
@@ -63,6 +70,8 @@ namespace Countries
 
         public int FindRegion(string regionName)
         {
+            /* Запрос по поиску региона
+             */
             int foundId = -1;
 
             string regionIdSearch = "SELECT id FROM Regions " +
@@ -86,6 +95,8 @@ namespace Countries
 
         public int AddRegion(string regionName)
         {
+            /* Запрос по добавлению региона
+             */
             int regionId = 0;
 
             string regionInsert = "INSERT INTO Regions (name) " +
@@ -102,6 +113,8 @@ namespace Countries
 
         public int FindCountry(string countryCode)
         {
+            /* Запрос по поиску страны
+             */
             int foundId = -1;
 
             string countryIdSearch = "SELECT id FROM Countries " +
@@ -126,6 +139,8 @@ namespace Countries
 
         public void AddCountry(Country country, int cityId, int regionId)
         {
+            /* Запрос по добавлению страны
+             */
             string countryInsert = "INSERT INTO Countries " +
                                    "(name, code, capital, area, population, region) " +
                                    "VALUES ('" + country.Name + "', '" + country.Code + "', " +
@@ -140,6 +155,8 @@ namespace Countries
 
         public void UpdateCountry(Country country, int cityId, int regionId, int countryId)
         {
+            /* Запрос по обновлению страны
+             */
             string countryUpdate = "UPDATE Countries SET " +
                                    "name = '" + country.Name + "', capital = " + cityId + ", " +
                                    "area = " + country.Area + ", " +
@@ -154,6 +171,8 @@ namespace Countries
 
         public DataTable GetCountriesTable()
         {
+            /* Запрос по извлечению списка стран, сохранённых в базе данных
+             */
             DataTable dataTable = new DataTable();
 
             string dataQuery = "SELECT c.name AS 'Название', c.code AS 'Код страны', " +

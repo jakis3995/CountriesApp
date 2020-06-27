@@ -5,6 +5,8 @@ namespace Countries
 {
     class DataBaseConnection
     {
+        /* Класс, отвечающий за соединение с базой данных
+         */
         private SqlConnection sqlConnection;
 
         public int CreateConnection(string connectionString)

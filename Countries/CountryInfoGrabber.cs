@@ -8,6 +8,8 @@ namespace Countries
 {
     class CountryInfoGrabber
     {
+        /* Класс, получающий информацию по введённой стране из Web-страницы
+         */
         private string url;
 
         public CountryInfoGrabber(string url)
@@ -17,6 +19,8 @@ namespace Countries
 
         public int CheckGetAbility(string countryName)
         {
+            /* Проверяет возможность найти страну по введённым пользователем данным
+             */
             int code = -1;
 
             try
@@ -46,11 +50,6 @@ namespace Countries
         {
             WebClient webclient = new WebClient();
             /*
-             *    Производит попытку подключения к внешней странице для извлечения инофрмации
-             * по искомой стране
-             */
-
-            /*
              *    Складывается URL-адрес страницы из основного URL (string url) и 
              * введённого названия страны на английском языке.
              */
@@ -66,7 +65,7 @@ namespace Countries
             region = jsonObject["region"].ToString();
             area = float.Parse(jsonObject["area"].ToString());
             population = int.Parse(jsonObject["population"].ToString());
-            // Создаётся экземпляр найденной страны
+            // Создаётся экземпляр найденной страны, который затем возвращается
             Country country = new Country(name, code, capital, area, population, region);
 
             return country;

@@ -5,6 +5,8 @@ namespace Countries
 {
     public partial class SettingsForm : Form
     {
+        /* Класс формы настроек подключения к базе данных
+         */
         private Form1 form1;
         private string connectionString;
         public SettingsForm(Form1 form1)
@@ -22,8 +24,8 @@ namespace Countries
             {
                 /*
                  *    Если файл сильно повреждается: отсутствуют знаки "=;" или слишком много 
-                 * или мало параметров - флаг fatallyCorruptedFileFlag ставится на true и данные
-                 * не заносятся в текстовые поля.
+                 * или мало параметров - флаг fatallyCorruptedFileFlag (в методе Check из класса
+                 * configChecker) ставится на true и данные не заносятся в текстовые поля.
                  *    Если файл незначительно повреждается: названия параметров конфигурации
                  * не являются корректными - флаг corruptedFileFlag ставится на true и данные, 
                  * которые можно прочитать, заносятся в соответствующие текстовые поля.
@@ -148,8 +150,8 @@ namespace Countries
              * сохранении/извлечении данных из базы данных будет использоваться старая база 
              * данных, connectionString с которой связан с самого начала работы всей программы.
              *    Сама connectionString берётся после проведения теста 
-             * (IsConnectionTestSuccessful()) на подключение к базе данных с введёнными 
-             * пользователем параметрами.
+             * (IsConnectionTestSuccessful() в DbConnectionTester) на подключение к базе данных
+             * с введёнными пользователем параметрами.
              */
             DbConnectionTester dbConnectionTester = new DbConnectionTester();
             connectionString = dbConnectionTester.ConnectionStringBuilder(textBox1.Text,

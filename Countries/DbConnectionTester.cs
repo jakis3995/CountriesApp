@@ -6,6 +6,9 @@ namespace Countries
 {
     class DbConnectionTester
     {
+        /* Класс, проверяющий возможность подключиться к базе данных по информации, введённой
+         * пользователем
+         */
         public string ConnectionStringBuilder(string dataSource, string databaseName,
             bool authInfo, string userId, string password)
         {

@@ -6,6 +6,8 @@ namespace Countries
 {
     public partial class CountriesSearchForm : Form
     {
+        /* Класс формы поиска страны и занесения (обновления) информации по ней в базе данных
+         */
         private Form1 form1;
         string connectionString;
         Country country;
@@ -36,6 +38,9 @@ namespace Countries
             /*
              * Обработка нажатия на кнопку "Найти"
              */
+            // Создаёт "информацию по культуре", которая при парсе числа с правающей точкой
+            // взаимодействует с числом, где разделитель именно точка, а не запятая. 
+            // Обнуляет строки с информацией о стране
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
             textBox2.Text = "";
             textBox3.Text = "";
@@ -49,11 +54,13 @@ namespace Countries
             if (countryName != "")
             {
                 CountryInfoGrabber countryInfoGrabber = new CountryInfoGrabber(url);
+                // Проверяет возможность извлечь информацию о введённой стране
                 int errorCode = countryInfoGrabber.CheckGetAbility(countryName);
 
                 switch (errorCode)
                 {
                     case 0:
+                        // После проверки извлекает информацию о введённой стране
                         country = countryInfoGrabber.GetCountryInfo(countryName);
                         textBox2.Text = country.Code;
                         textBox3.Text = country.Capital;
